@@ -66,5 +66,26 @@ nginx ansible_host=127.0.0.1 ansible_port=2222 ansible_private_key_file=.vagrant
 <p><span style="font-weight: 300;">Проверим статус сервиса firewalld:</span></p>
 <img width="735" height="621" alt="image" src="https://github.com/user-attachments/assets/63095394-81a2-432e-9bc3-2484ea314612" />
 <p>&nbsp;</p>
-
+<p><span style="font-weight: 300;">Создадим playbook-файл nginx.yml в текущей папке и начнем его наполнять:</span></p>
+<img width="471" height="343" alt="image" src="https://github.com/user-attachments/assets/8e379f8a-6306-4b32-bfe5-17419de4e88a" />
+<p>&nbsp;</p>
+<p><span style="font-weight: 300;">Запустим playbook-файл командой ansible-playbook nginx.yml:</span></p>
+<img width="806" height="407" alt="image" src="https://github.com/user-attachments/assets/ff472df3-0452-45f6-b3c0-de37a3f71dae" />
+<p>&nbsp;</p>
+<p><span style="font-weight: 300;">Выполнено успешно. Далее добавим шаблон для конфига NGINX и модуль, который будет копировать этот шаблон на хост. Также добавим переменную для порта 8080 и теги. Теперь файл будет выглядеть так:</span></p>
+<img width="613" height="624" alt="image" src="https://github.com/user-attachments/assets/45a29257-dca7-4a4a-8401-40d1bdffd191" />
+<p>&nbsp;</p>
+<p><span style="font-weight: 300;">Сам шаблон будет выглядеть так:</span></p>
+<img width="663" height="375" alt="image" src="https://github.com/user-attachments/assets/057d9940-75e8-4f57-8418-f19245681bcf" />
+<p>&nbsp;</p>
+<p align="left"><span style="font-family: 'Roboto Light', serif;"><span style="font-size: medium;">Теперь создадим handler и добавим notify к копированию шаблона. Теперь каждый раз, когда конфиг будет изменяться - сервис перезагрузится. Файл будет такой:</p>
+<img width="663" height="996" alt="image" src="https://github.com/user-attachments/assets/33954c60-062a-4330-8230-7142f4caf911" />
+<p>&nbsp;</p>
+<p><span style="font-weight: 300;">Теперь запустим наш playbook:</span></p>
+<img width="810" height="539" alt="image" src="https://github.com/user-attachments/assets/fabce3dd-9185-49f7-954b-e4f1de37248a" />
+<p>&nbsp;</p>
+<p><span style="font-weight: 300;">Можно проверить работу nginx на ВМ:</span></p>
+<p align="left">shirokovpv@SPB300:~/ansible$ vagrant ssh</p>
+<p align="left">vagrant@nginx:~$ sudo -i<br />root@nginx:~# systemctl status nginx</p>
+<img width="803" height="419" alt="image" src="https://github.com/user-attachments/assets/7edc08e2-2621-4bcb-aec2-8a45e2c8b826" />
 
