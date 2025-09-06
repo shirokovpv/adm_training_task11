@@ -34,7 +34,37 @@
 <p>Видим, что ВМ установлена и запущена:</p>
 <img width="1092" height="410" alt="image" src="https://github.com/user-attachments/assets/0cf0466d-a723-4536-91f9-48a5a054967e" />
 <p>&nbsp;</p>
-<p>Подключаемся к ВМ с помощью команды vagrant ssh</p>
-<img width="768" height="666" alt="image" src="https://github.com/user-attachments/assets/a39caf89-fa11-4aa1-bbc3-b4ccdbc85c93" />
+<p>Узнаем нужные нам параметры с помощью команды vagrant ssh-config</p>
+<img width="811" height="325" alt="image" src="https://github.com/user-attachments/assets/3b4b53a6-a8a0-44c0-975d-79fd507cda24" />
 <p>&nbsp;</p>
-<p>Все работает.</p>
+<p><span style="font-weight: 300;">Создадим свой первый inventory файл ./staging/hosts</span></p>
+<p><span style="font-weight: 300;">Со следующим содержимым:</span></p>
+<p><span style="font-weight: 400;">nginx ansible_host=127.0.0.1 ansible_port=2222 ansible_user=vagrant ansible_private_key_file=.vagrant/machines/nginx/virtualbox/private_key</span></p>
+<img width="811" height="93" alt="image" src="https://github.com/user-attachments/assets/f97bf05e-9676-45e9-9997-974b9aa8a7b8" />
+<p>&nbsp;</p>
+<p><span style="font-weight: 300;">Убедимся, что Ansible может управлять нашим хостом. Сделать это можно с помощью команды ansible nginx -i staging/hosts -m ping</span></p>
+<img width="811" height="205" alt="image" src="https://github.com/user-attachments/assets/f162457e-5b4e-496a-abbb-c02f0b5f972b" />
+<p>&nbsp;</p>
+<p><span style="font-weight: 300;">Как видно, нам придется каждый раз явно указывать наш&nbsp;inventory-файл и вписывать в него много информации. Это можно обойти, используя </span><span style="font-weight: 300;">ansible.cfg </span><span style="font-weight: 300;">файл - прописав конфигурацию в нем.&nbsp;</span><span>Для этого в текущем каталоге создадим файл </span><span>ansible.cfg</span><span> со следующим содержанием:</span></p>
+<p><span style="font-weight: 400;">[defaults]</span></p>
+<p><span style="font-weight: 400;">inventory = staging/hosts</span></p>
+<p><span style="font-weight: 400;">remote_user = vagrant</span></p>
+<p><span style="font-weight: 400;">host_key_checking = False</span></p>
+<p><span style="font-weight: 400;">retry_files_enabled = False</span></p>
+<img width="496" height="169" alt="image" src="https://github.com/user-attachments/assets/f9561873-ba43-4b8c-a940-40169b44e68c" />
+<p>&nbsp;</p>
+Теперь из инвентори можно убрать информацию о пользователе:
+nginx ansible_host=127.0.0.1 ansible_port=2222 ansible_private_key_file=.vagrant/machines/nginx/virtualbox/private_key
+<img width="807" height="95" alt="image" src="https://github.com/user-attachments/assets/e1432085-f12f-448f-be7c-e85ae70b537b" />
+<p>&nbsp;</p>
+<p><span style="font-weight: 300;">Еще раз убедимся, что управляемый хост доступен, только теперь без явного указания inventory-файла:</span></p>
+<img width="613" height="206" alt="image" src="https://github.com/user-attachments/assets/f118d338-c213-432c-a49c-1cd3b61fd64c" />
+<p>&nbsp;</p>
+<p><span style="font-weight: 300;">Теперь мы можем конфигурировать наш хост. Для начала воспользуемся Ad-Hoc командами и выполним некоторые удаленные команды на нашем хосте. Посмотрим, какое ядро установлено на хосте:</p>
+<img width="683" height="96" alt="image" src="https://github.com/user-attachments/assets/c7d7ef4b-03d1-4946-bdff-767cc6776935" />
+<p>&nbsp;</p>
+<p><span style="font-weight: 300;">Проверим статус сервиса firewalld:</span></p>
+<img width="735" height="621" alt="image" src="https://github.com/user-attachments/assets/63095394-81a2-432e-9bc3-2484ea314612" />
+<p>&nbsp;</p>
+
+
